@@ -100,8 +100,14 @@ int main()
     usleep(400000);                        // sleep
   }
 
-  usleep(10000);            // flush whatever is left in input buffer
-  nodelay(stdscr, FALSE);   // switch to normal input mode
+  // flush whatever is left in input buffer and pause
+  for (int i = 0; i < 5; i ++) {
+    usleep(400000);
+    ch = getch();
+  }
+
+  // switch to normal input mode
+  nodelay(stdscr, FALSE);
 
   // Draw GameOver window
   overWIN = newwin(ovH, ovW, ovY, ovX);

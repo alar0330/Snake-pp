@@ -168,7 +168,7 @@ void drawIntro(WINDOW* _inw)
   wprintw(_inw, "  Greeting! This is Snake++ text game written in C++. \n\n");
   wprintw(_inw, "  Version: ");
   wattron(_inw, A_BOLD);
-  wprintw(_inw, " v1.1a (alpha)\n");
+  wprintw(_inw, " v1.2a (alpha)\n");
   wattroff(_inw, A_BOLD);
   wprintw(_inw, "  Author:  ");
   wattron(_inw, A_BOLD);
