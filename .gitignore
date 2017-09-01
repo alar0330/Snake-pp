@@ -1,0 +1,14 @@
+# GIT ignore files
+bin/
+*.backup
+*.exe
+*.bin
+*.save
+*.depend
+*.layout
+*.cbp
+*~
+tests/*
+obj/*
+*.out
+.vs/*
