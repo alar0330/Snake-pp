@@ -1,4 +1,4 @@
-## Snake-++
+## Snake-pp
 
 This is **Snake++**! A simple snake game for command prompt written in C++.
 
