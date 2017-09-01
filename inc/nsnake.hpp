@@ -10,7 +10,6 @@ class Link {
     int x, y, v, h;
 
     Link(int, int, int, int);
-    ~Link();
 
     Link* getNext() const { return next; }
     void setNext(Link* next_) { next = next_; }
