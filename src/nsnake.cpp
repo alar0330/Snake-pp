@@ -2,16 +2,13 @@
 #include <cstdlib>
 #include <ctime>
 
+// CTOR: The Link class (Linked-list structure)
 Link::Link(int x_, int y_, int h_, int v_) :
   next(nullptr),
   x(x_),
   y(y_),
   v(v_),
   h(h_) {
-}
-
-Link::~Link() {
-  // empty
 }
 
 // CTOR: head is created even if size_ < 1
@@ -25,7 +22,7 @@ Snake::Snake(int xh_, int yh_, int hh_, int vh_, int size_) :
   }
 }
 
-// DTOR
+// DTOR: de-allocate Links
 Snake::~Snake()
 {
   while ( shrink() ) {
@@ -42,12 +39,13 @@ void Snake::advance()
 
   int pv, ph, nv, nh;
 
-  // save p
+  // save head vector
   pv = head.v;
   ph = head.h;
 
   Link* pnext = &head;
 
+  // update snake body
   while (pnext->getNext()) {
     pnext = pnext->getNext();
 
@@ -67,7 +65,7 @@ void Snake::advance()
   return;
 }
 
-// Force-move snake for Alpha-build
+// Force-move snake for Alpha-build (not needed)
 void Snake::advance(int h_, int v_)
 {
   head.h = h_;
@@ -103,7 +101,7 @@ bool Snake::shrink()
   return true;
 }
 
-// Last link pointer
+// Get last link pointer
 Link* Snake::getLastLink()
 {
   Link* plast = &head;
@@ -113,6 +111,7 @@ Link* Snake::getLastLink()
   return plast;
 }
 
+// check if x_, y_ are INSIDE the snake
 bool Snake::inside(int x_, int y_)
 {
   Link* pcheck = &head;
@@ -123,13 +122,14 @@ bool Snake::inside(int x_, int y_)
   return false;
 }
 
-
+// CTOR: class Food
 Food::Food(int x_, int y_, int t_) :
   x(x_),
   y(y_),
   type(t_) {
 }
 
+// CTOR: generate new food
 void Food::renew(int h_, int w_, Snake& sn_) {
   srand(time(0));
   do {
