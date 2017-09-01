@@ -1,4 +1,11 @@
-#include <ncursesw/ncurses.h>
+#ifdef _WIN32
+  #include "../inc/ncursesw/ncurses.h"
+#elif __linux__
+  #include "../inc/ncurses/ncurses.h"
+#else
+  // other systems
+#endif
+
 #include "../inc/nsnake.hpp"
 #include "../inc/util.hpp"
 #include <unistd.h>
