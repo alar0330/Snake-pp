@@ -2,7 +2,7 @@
 #define _UTIL_HPP_
 
 void drawMap(WINDOW*);
-void drawSnake(WINDOW*, Snake&);
+void drawSnake(WINDOW*, Snake&, bool b = true);
 void drawFood(WINDOW*, Food&);
 void processInput(int, Snake&);
 bool updateWorld(WINDOW*, Snake&, Food&);

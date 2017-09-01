@@ -79,17 +79,16 @@ int main()
 
   // Switch to continuous keyboard input
   nodelay(stdscr, TRUE);
- 
+
   // THE GAME LOOP
   while(alive) {
-
-    wclear(gameWIN);                       // clear Gmae window
-                                           //    (lazy way to do this)
 
     if( (ch = getch()) != ERR ) {
       processInput(ch, sn);                // process key input
     }
 
+
+    drawSnake(gameWIN, sn, false);         // erase snake from the screen
     alive = updateWorld(gameWIN, sn, fd);  // perform interactions
     sn.advance();                          // move snake
     drawMap(gameWIN);                      // draw map
@@ -99,7 +98,6 @@ int main()
     refresh();                             // flip graphics
     wrefresh(gameWIN);                     // flip graphics gameWIN
     usleep(400000);                        // sleep
-
   }
 
   usleep(10000);            // flush whatever is left in input buffer

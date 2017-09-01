@@ -15,17 +15,27 @@ void drawMap(WINDOW* _scr)
   box(_scr, 0 , 0);
 }
 
-void drawSnake(WINDOW* _scr, Snake& _sn)
+void drawSnake(WINDOW* _scr, Snake& _sn, bool _draw)
 {
-  wattron(_scr, COLOR_PAIR(3));
-  mvwaddch(_scr, _sn.head.y, _sn.head.x, chHead);
+  if (_draw){
+    wattron(_scr, COLOR_PAIR(3));
+    mvwaddch(_scr, _sn.head.y, _sn.head.x, chHead);
 
-  Link* pnext = _sn.head.getNext();
-  while (pnext) {
-    mvwaddch(_scr, pnext->y, pnext->x, chBody);
-    pnext = pnext->getNext();
+    Link* pnext = _sn.head.getNext();
+    while (pnext) {
+      mvwaddch(_scr, pnext->y, pnext->x, chBody);
+      pnext = pnext->getNext();
+    }
+    wattroff(_scr, COLOR_PAIR(3));
   }
-  wattroff(_scr, COLOR_PAIR(3));
+  else {
+    Link* pnext = &_sn.head;
+    while (pnext) {
+      mvwaddch(_scr, pnext->y, pnext->x, ' ');
+      pnext = pnext->getNext();
+    }
+  }
+
 }
 
 void drawFood(WINDOW* _scr, Food& _fd)
@@ -145,8 +155,8 @@ void drawStats(WINDOW* _s, int _shift, Snake& _sn)
   int xs;
   getmaxyx(_s, ys, xs);
 
-  mvwprintw(_s, _shift +1, xs/2-10, " MEALS: %d times", getScore());
-  mvwprintw(_s, _shift + 2, xs/2-10, "   FAT: %d kg", _sn.length);
+  mvwprintw(_s, _shift +1, xs/2-10, " MEALS: %3d times", getScore());
+  mvwprintw(_s, _shift + 2, xs/2-10, "   FAT: %3d kg", _sn.length);
 }
 
 void drawIntro(WINDOW* _inw)
