@@ -13,6 +13,8 @@ static int chBody = 'o';
 static int chGoodFood = 'Q';
 static int chBadFood = 'T';
 static int score = 0;
+static int gameSpeed = 400000;
+static int speedLevel = 0;
 
 const int MIN_H = 40;
 const int MIN_W = 60;
@@ -20,6 +22,11 @@ const int MIN_W = 60;
 void drawMap(WINDOW* _scr)
 {
   box(_scr, 0 , 0);
+}
+
+int getGameSpeed()
+{
+  return gameSpeed;
 }
 
 void drawSnake(WINDOW* _scr, Snake& _sn, bool _draw)
@@ -66,6 +73,8 @@ bool updateWorld(WINDOW* _scr, Snake& _sn, Food& _fd)
   if (_sn.inside(_fd.x, _fd.y)) {
     if (_fd.type) {
         _sn.shrink();
+        gameSpeed = (int) gameSpeed*0.95;
+        speedLevel++;
     }
     else {
         _sn.grow();
@@ -164,6 +173,7 @@ void drawStats(WINDOW* _s, int _shift, Snake& _sn)
 
   mvwprintw(_s, _shift +1, xs/2-10, " MEALS: %3d times", getScore());
   mvwprintw(_s, _shift + 2, xs/2-10, "   FAT: %3d kg", _sn.length);
+  mvwprintw(_s, _shift + 3, xs/2-10, " SPEED: %3d lvl", speedLevel);
 }
 
 void drawIntro(WINDOW* _inw)
@@ -184,7 +194,8 @@ void drawIntro(WINDOW* _inw)
   wprintw(_inw, "  Game intructions:  \n");
   wprintw(_inw, "            - use keypad to command your snake\n");
   wprintw(_inw, "            - eat apples (Q) to grow\n");
-  wprintw(_inw, "            - if you eat mushroom (T) you'll lose weight\n");
+  wprintw(_inw, "            - if you eat mushroom (T) you'll lose weight,\n");
+  wprintw(_inw, "                   but your snake will start running faster!\n");
   wprintw(_inw, "            - don't hit walls and try to eat yourself\n");
   wprintw(_inw, "            - have fun!\n\n");
   wattron(_inw, A_BOLD);

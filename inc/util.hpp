@@ -13,5 +13,6 @@ bool checkTermSize(int, int);
 bool checkTermColor();
 void drawIntro(WINDOW*);
 void drawGameOver(WINDOW*);
+int getGameSpeed();
 
 #endif

@@ -33,8 +33,8 @@ int main()
 
   // Define Intro window parameters
   WINDOW* inWIN;
-  int inH = 15;
-  int inW = 60;
+  int inH = 16;
+  int inW = 62;
   int inY = (mainLINES - inH) / 2 + 4;
   int inX = (mainCOLS - inW) / 2;
 
@@ -104,12 +104,12 @@ int main()
     drawStats(stdscr, gameH + gameY, sn);  // draw score
     refresh();                             // flip graphics
     wrefresh(gameWIN);                     // flip graphics gameWIN
-    usleep(400000);                        // sleep
+    usleep(getGameSpeed());                // sleep
   }
 
   // flush whatever is left in input buffer and pause
   for (int i = 0; i < 5; i ++) {
-    usleep(400000);
+    usleep(300000);
     ch = getch();
   }
 
