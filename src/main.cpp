@@ -29,28 +29,28 @@ int main()
   int inH = 15;
   int inW = 60;
   int inY = (mainLINES - inH) / 2 + 4;
-	int inX = (mainCOLS - inW) / 2;
+  int inX = (mainCOLS - inW) / 2;
 
   // Define Game window parameters
   WINDOW* gameWIN;
   int gameH = 17;
   int gameW = 22;
   int gameY = (mainLINES - gameH) / 2 + 4;
-	int gameX = (mainCOLS - gameW) / 2;
+  int gameX = (mainCOLS - gameW) / 2;
 
   // Define GameOver window parameters
   WINDOW* overWIN;
   int ovH = 9;
   int ovW = 34;
   int ovY = (mainLINES - ovH) / 2 + 4;
-	int ovX = (mainCOLS - ovW) / 2;
+  int ovX = (mainCOLS - ovW) / 2;
 
   // Define Logo window parameters
   WINDOW* logWIN;
   int loH = 8;
   int loW = 42;
   int loY = gameY - loH - 2;
-	int loX = (mainCOLS - loW) / 2;
+  int loX = (mainCOLS - loW) / 2;
 
   // Input flow settings
   cbreak();
@@ -68,9 +68,9 @@ int main()
   inWIN = newwin(inH, inW, inY, inX);
   drawIntro(inWIN);
 
-	// Draw Game window
-	gameWIN = newwin(gameH, gameW, gameY, gameX);
-	wattron(gameWIN, A_BOLD);
+  // Create Game window
+  gameWIN = newwin(gameH, gameW, gameY, gameX);
+  wattron(gameWIN, A_BOLD);
 
   // Create Snake and Food objects
   Snake sn(gameW/2, gameH/2, -1, 0, 6);
@@ -79,8 +79,8 @@ int main()
 
   // Switch to continuous keyboard input
   nodelay(stdscr, TRUE);
-
-  // The game loop
+ 
+  // THE GAME LOOP
   while(alive) {
 
     wclear(gameWIN);                       // clear Gmae window
