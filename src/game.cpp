@@ -1,9 +1,22 @@
-#ifdef _WIN32
-  #include "../inc/ncursesw/ncurses.h"
-#elif __linux__
-  #include "../inc/ncurses/curses.h"
+// if compile with destributed copy of ncurses library
+#ifdef GIVEMEYOURCURSES
+  #ifdef _WIN32
+    #include "../inc/ncursesw/ncurses.h"
+  #elif __linux__
+    #include "../inc/ncurses/curses.h"
+  #else
+    // other systems
+  #endif
+
+// if compile with already pre-installed libraries of ncurses
 #else
-  // other systems
+  #ifdef _WIN32
+    #include <ncursesw/ncurses.h>
+  #elif __linux__
+    #include <ncurses/ncurses.h>
+  #else
+    // other systems
+  #endif
 #endif
 
 #include "../inc/nsnake.hpp"
