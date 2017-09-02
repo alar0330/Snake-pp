@@ -16,16 +16,16 @@ It is minimalistically cross-platform: currently Windows (under MinGW) and Linux
 
 -- Linux:
 ```
-g++ -Iinc -Llib src/main.cpp src/nsnake.cpp src/game.cpp -lncurses -o bin/Snake-pp.bin
+g++ src/main.cpp src/nsnake.cpp src/game.cpp -lncurses -o bin/Snake-pp.bin
 ```
 
 -- Win (under MinGW):
 ```
-g++ -Iinc -Llib src\main.cpp src\nsnake.cpp src\game.cpp -lncursesw -o bin\Snake-pp.exe
+g++ src\main.cpp src\nsnake.cpp src\game.cpp -lncursesw -o bin\Snake-pp.exe
 ```
 
 - If you **don't have** 'ncurses' libraries, you can download the 'ncurses-local.zip' from this repo, unzip it directly into the main repo-folder (so that, *e.g.*, repo's inc/ merges with unzipped inc/), and compile with the additional 
 ```
--DGIVEMEYOURCURSES
+-Iinc -Llib -DGIVEMEYOURCURSES
 ```
-flag.
+flags.
