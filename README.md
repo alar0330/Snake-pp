@@ -24,4 +24,8 @@ Win (under MinGW):
 g++ -Iinc -Llib src\main.cpp src\nsnake.cpp src\game.cpp -lncursesw -o bin\Snake-pp.exe
 ```
 
-- If you **don't have** 'ncurses' libraries, you can download the 'ncurses-local.zip' from this repo, unzip it directly into the main repo-folder (so that, *e.g.*, repo's inc/ merges with unzipped inc/), and compile with the additional '-DGIVEMEYOURCURSES' flag.
+- If you **don't have** 'ncurses' libraries, you can download the 'ncurses-local.zip' from this repo, unzip it directly into the main repo-folder (so that, *e.g.*, repo's inc/ merges with unzipped inc/), and compile with the additional 
+```
+-DGIVEMEYOURCURSES
+```
+flag.
