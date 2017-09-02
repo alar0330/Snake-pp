@@ -1,3 +1,38 @@
+// Snake++ project: main.cpp file
+
+/**
+ *  This is Snake++! A simple snake game for
+ *                            command prompt/terminal written in C++.
+ *
+ *  @version  v1.3a (02.09.2017)
+ *  @author   Alaroff
+ *
+ * INFO:
+ *
+ *   - It is minimalistically cross-platform:
+ *                          currently Windows (under MinGW) and Linux.
+ *
+ *   - This repo (https://github.com/alar0330/Snake-pp) contains all the
+ *     neccessary ncurses Win- and Lin-libraries, so that Snake++ can be
+ *     readily compiled into a binary without needing to fetch/install
+ *     ncurses libraries manually.
+ *
+ * NOTES:
+ *
+ *   - This code is a proof of concept, rather then elegance, efficiency,
+ *     or cleanness -- there are lots of ways to improve it. This is my
+ *     very first app with any kind of "graphics" an which I didn't want
+ *     to spend more than a day of coding. Moreover, I wanted to avoid the
+ *     std-libraries for the sake of practice (e.g. using std::list would
+ *     spare some code overhead).
+ *
+ *   - This code uses nowadays depricated (?) POSIX function 'usleep()',
+ *     since 'std::thread' is not fully supported in MinGW32 and I did't
+ *     want to spend time looking for more elegant solutions. Anyway,
+ *     Win-library of ncurses is POSIX-based through e.g. MinGW anyhow.
+ */
+
+
 #ifdef _WIN32
   #include "../inc/ncursesw/ncurses.h"
 #elif __linux__
@@ -7,7 +42,7 @@
 #endif
 
 #include "../inc/nsnake.hpp"
-#include "../inc/util.hpp"
+#include "../inc/game.hpp"
 #include <unistd.h>
 
 int main()
@@ -21,9 +56,12 @@ int main()
   initscr();
   getmaxyx(stdscr, mainLINES, mainCOLS);
 
+  // create THE Game object
+  Game game;
+
   // Size and Color checks for the terminal
-  if(checkTermSize(mainLINES, mainCOLS)) return 1;
-  if(checkTermColor()) return 1;
+  if(game.checkTermSize(mainLINES, mainCOLS)) return 1;
+  if(game.checkTermColor()) return 1;
 
   // Start color mode and init game colors
   start_color();
@@ -40,10 +78,10 @@ int main()
 
   // Define Game window parameters
   WINDOW* gameWIN;
-  int gameH = 17;
-  int gameW = 22;
-  int gameY = (mainLINES - gameH) / 2 + 4;
-  int gameX = (mainCOLS - gameW) / 2;
+  int gaH = 17;
+  int gaW = 22;
+  int gaY = (mainLINES - gaH) / 2 + 4;
+  int gaX = (mainCOLS - gaW) / 2;
 
   // Define GameOver window parameters
   WINDOW* overWIN;
@@ -56,7 +94,7 @@ int main()
   WINDOW* logWIN;
   int loH = 8;
   int loW = 42;
-  int loY = gameY - loH - 2;
+  int loY = gaY - loH - 2;
   int loX = (mainCOLS - loW) / 2;
 
   // Input flow settings
@@ -68,12 +106,12 @@ int main()
 
   // Draw Logo
   logWIN = newwin(loH, loW, loY, loX);
-  drawLogo(logWIN);
+  game.drawLogo(logWIN);
 
 
   // Draw Intro window
   inWIN = newwin(inH, inW, inY, inX);
-  drawIntro(inWIN);
+  game.drawIntro(inWIN);
 
   // Create Game window
   gameWIN = newwin(gameH, gameW, gameY, gameX);
@@ -91,20 +129,19 @@ int main()
   while(alive) {
 
     if( (ch = getch()) != ERR ) {
-      processInput(ch, sn);                // process key input
+      game.processInput(ch, sn);                // process key input
     }
 
-
-    drawSnake(gameWIN, sn, false);         // erase snake from the screen
-    alive = updateWorld(gameWIN, sn, fd);  // perform interactions
-    sn.advance();                          // move snake
-    drawMap(gameWIN);                      // draw map
-    drawFood(gameWIN, fd);                 // draw food
-    drawSnake(gameWIN, sn);                // draw snake
-    drawStats(stdscr, gameH + gameY, sn);  // draw score
-    refresh();                             // flip graphics
-    wrefresh(gameWIN);                     // flip graphics gameWIN
-    usleep(getGameSpeed());                // sleep
+    game.drawSnake(gameWIN, sn, false);         // erase snake from the screen
+    alive = game.updateWorld(gameWIN, sn, fd);  // perform interactions
+    snake.advance();                            // move snake
+    game.drawMap(gameWIN);                      // draw map
+    game.drawFood(gameWIN, fd);                 // draw food
+    game.drawSnake(gameWIN, sn);                // draw snake
+    game.drawStats(stdscr, gameH + gameY, sn);  // draw score
+    refresh();                                  // flip graphics
+    wrefresh(gameWIN);                          // flip graphics gameWIN
+    usleep(game.getGameSpeed());                // sleep
   }
 
   // flush whatever is left in input buffer and pause
@@ -118,7 +155,7 @@ int main()
 
   // Draw GameOver window
   overWIN = newwin(ovH, ovW, ovY, ovX);
-  drawGameOver(overWIN);
+  game.drawGameOver(overWIN);
 
   // Exit nCurses mode
   delwin(logWIN);

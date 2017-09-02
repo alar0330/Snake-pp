@@ -7,29 +7,23 @@
 #endif
 
 #include "../inc/nsnake.hpp"
+#include "../inc/game.hpp"
 
-static int chHead = 'O';
-static int chBody = 'o';
-static int chGoodFood = 'Q';
-static int chBadFood = 'T';
-static int score = 0;
-static int gameSpeed = 400000;
-static int speedLevel = 0;
+Game::Game() :
+  score(0), gameSpeed(400000), speedLevel(0)
+{}
 
-const int MIN_H = 40;
-const int MIN_W = 60;
-
-void drawMap(WINDOW* _scr)
+void Game::drawMap(WINDOW* _scr)
 {
-  box(_scr, 0 , 0);
+  box(_scr, 0, 0);
 }
 
-int getGameSpeed()
+int Game::getGameSpeed()
 {
   return gameSpeed;
 }
 
-void drawSnake(WINDOW* _scr, Snake& _sn, bool _draw)
+void Game::drawSnake(WINDOW* _scr, Snake& _sn, bool _draw)
 {
   if (_draw){
     wattron(_scr, COLOR_PAIR(3));
@@ -52,7 +46,7 @@ void drawSnake(WINDOW* _scr, Snake& _sn, bool _draw)
 
 }
 
-void drawFood(WINDOW* _scr, Food& _fd)
+void Game::drawFood(WINDOW* _scr, Food& _fd)
 {
   if (_fd.type == 0) {
     wattron(_scr, COLOR_PAIR(2));
@@ -65,7 +59,7 @@ void drawFood(WINDOW* _scr, Food& _fd)
   wattroff(_scr, COLOR_PAIR(1));
 }
 
-bool updateWorld(WINDOW* _scr, Snake& _sn, Food& _fd)
+bool Game::updateWorld(WINDOW* _scr, Snake& _sn, Food& _fd)
 {
   int mapH, mapW;
   getmaxyx(_scr, mapH, mapW);
@@ -99,7 +93,7 @@ bool updateWorld(WINDOW* _scr, Snake& _sn, Food& _fd)
   return true;
 }
 
-void processInput(int _ch, Snake& _sn)
+void Game::processInput(int _ch, Snake& _sn)
 {
 
   switch(_ch) {
@@ -136,103 +130,103 @@ void processInput(int _ch, Snake& _sn)
   }
 }
 
-int getScore() {
+int Game::getScore() {
   return score;
 }
 
-void drawLogo(WINDOW* _logw)
+void Game::drawLogo(WINDOW* _scr)
 {
   int x, y;
 
   y = 0;
   x = 0;
-  mvwprintw(_logw, ++y, x,"  XXX   X   X     XX  X   X  XXXX ");
-  mvwprintw(_logw, ++y, x," X      X   X    X X  X  X   X    ");
-  mvwprintw(_logw, ++y, x," X      XX  X    X X  X X    X    ");
-  mvwprintw(_logw, ++y, x,"  XX    X X X   X  X  XXX    XXXX ");
-  mvwprintw(_logw, ++y, x,"    X   X  XX   XXXX  X  X   X    ");
-  mvwprintw(_logw, ++y, x,"    X   X   X  X   X  X  X   X    ");
-  mvwprintw(_logw, ++y, x," XXx    X   X  X   X  X   X  XXXX ");
+  mvwprintw(_scr, ++y, x,"  XXX   X   X     XX  X   X  XXXX ");
+  mvwprintw(_scr, ++y, x," X      X   X    X X  X  X   X    ");
+  mvwprintw(_scr, ++y, x," X      XX  X    X X  X X    X    ");
+  mvwprintw(_scr, ++y, x,"  XX    X X X   X  X  XXX    X    ");
+  mvwprintw(_scr, ++y, x,"    X   X  XX   XXXX  X  X   X    ");
+  mvwprintw(_scr, ++y, x,"    X   X   X  X   X  X  X   X    ");
+  mvwprintw(_scr, ++y, x," XXx    X   X  X   X  X   X  XXXX ");
 
   y = 2;
   x += 30;
-  wattron(_logw, COLOR_PAIR(1));
-  mvwprintw(_logw, ++y, x,"   X     X   ");
-  mvwprintw(_logw, ++y, x," xxXxx xxXxx ");
-  mvwprintw(_logw, ++y, x,"   X     X   ");
-  wattroff(_logw, COLOR_PAIR(1));
+  wattron(_scr, COLOR_PAIR(1));
+  mvwprintw(_scr, ++y, x,"   X     X   ");
+  mvwprintw(_scr, ++y, x," xxXxx xxXxx ");
+  mvwprintw(_scr, ++y, x,"   X     X   ");
+  wattroff(_scr, COLOR_PAIR(1));
 
-  wrefresh(_logw);
+  wrefresh(_scr);
 }
 
-void drawStats(WINDOW* _s, int _shift, Snake& _sn)
+void Game::drawStats(WINDOW* _scr, int _shift, Snake& _sn)
 {
   int ys;
   int xs;
-  getmaxyx(_s, ys, xs);
+  getmaxyx(_scr, ys, xs);
 
-  mvwprintw(_s, _shift +1, xs/2-10, " MEALS: %3d times", getScore());
-  mvwprintw(_s, _shift + 2, xs/2-10, "   FAT: %3d kg", _sn.length);
-  mvwprintw(_s, _shift + 3, xs/2-10, " SPEED: %3d lvl", speedLevel);
+  mvwprintw(_scr, _shift +1, xs/2-10, " MEALS: %3d times", getScore());
+  mvwprintw(_scr, _shift + 2, xs/2-10, "   FAT: %3d kg", _sn.length);
+  mvwprintw(_scr, _shift + 3, xs/2-10, " SPEED: %3d lvl", speedLevel);
 }
 
-void drawIntro(WINDOW* _inw)
+void Game::drawIntro(WINDOW* _scr)
 {
   //wattron(_inw, COLOR_PAIR(1));
-  box(_inw, 0, 0);
-  wmove(_inw, 1,0);
+  box(_scr, 0, 0);
+  wmove(_scr, 1,0);
 
-  wprintw(_inw, "  Greeting! This is Snake++ text game written in C++. \n\n");
-  wprintw(_inw, "  Version: ");
-  wattron(_inw, A_BOLD);
-  wprintw(_inw, " v1.2a (alpha)\n");
-  wattroff(_inw, A_BOLD);
-  wprintw(_inw, "  Author:  ");
-  wattron(_inw, A_BOLD);
-  wprintw(_inw, " Alaroff\n\n");
-  wattroff(_inw, A_BOLD);
-  wprintw(_inw, "  Game intructions:  \n");
-  wprintw(_inw, "            - use keypad to command your snake\n");
-  wprintw(_inw, "            - eat apples (Q) to grow\n");
-  wprintw(_inw, "            - if you eat mushroom (T) you'll lose weight,\n");
-  wprintw(_inw, "                   but your snake will start running faster!\n");
-  wprintw(_inw, "            - don't hit walls and try to eat yourself\n");
-  wprintw(_inw, "            - have fun!\n\n");
-  wattron(_inw, A_BOLD);
-  wprintw(_inw, "                      HIT ANY KEY                   \n");
-  wattroff(_inw, A_BOLD);
+  wprintw(_scr, "  Greeting! This is Snake++ text game written in C++. \n\n");
+  wprintw(_scr, "  Version: ");
+  wattron(_scr, A_BOLD);
+  wprintw(_scr, " v1.3a (alpha)\n");
+  wattroff(_scr, A_BOLD);
+  wprintw(_scr, "  Author:  ");
+  wattron(_scr, A_BOLD);
+  wprintw(_scr, " Alaroff\n\n");
+  wattroff(_scr, A_BOLD);
+  wprintw(_scr, "  Game intructions:  \n");
+  wprintw(_scr, "            - use keypad to command your snake\n");
+  wprintw(_scr, "            - eat apples (Q) to grow\n");
+  wprintw(_scr, "            - if you eat mushroom (T) you'll lose weight,\n");
+  wprintw(_scr, "                   but your snake will start running faster!\n");
+  wprintw(_scr, "            - don't hit walls and try to eat yourself\n");
+  wprintw(_scr, "            - have fun!\n\n");
+  wattron(_scr, A_BOLD);
+  wprintw(_scr, "                      HIT ANY KEY                   \n");
+  wattroff(_scr, A_BOLD);
 
-	wrefresh(_inw);
+	wrefresh(_scr);
 	getch();
-	wclear(_inw);
-	wrefresh(_inw);
-	delwin(_inw);
+	wclear(_scr);
+	wrefresh(_scr);
+	delwin(_scr);
 }
 
-void drawGameOver(WINDOW* _inw)
+void Game::drawGameOver(WINDOW* _scr)
 {
-  box(_inw, 0, 0);
-  wmove(_inw, 1,0);
+  box(_scr, 0, 0);
+  wmove(_scr, 1,0);
 
-  wattron(_inw, COLOR_PAIR(1));
-  wattron(_inw, A_BOLD);
-  wprintw(_inw, "            GAME OVER! \n\n\n");
-  wattroff(_inw, A_BOLD);
-  wattroff(_inw, COLOR_PAIR(1));
+  wattron(_scr, COLOR_PAIR(1));
+  wattron(_scr, A_BOLD);
+  wprintw(_scr, "            GAME OVER! \n\n\n");
+  wattroff(_scr, A_BOLD);
+  wattroff(_scr, COLOR_PAIR(1));
 
-  wprintw(_inw, "       Try better next time! \n\n\n");
-  wattron(_inw, A_BOLD);
-  wprintw(_inw, "           HIT ANY KEY   \n");
-  wattroff(_inw, A_BOLD);
-	wrefresh(_inw);
+  wprintw(_scr, "       Try better next time! \n\n\n");
+  wattron(_scr, A_BOLD);
+  wprintw(_scr, "           HIT ANY KEY   \n");
+  wattroff(_scr, A_BOLD);
+	wrefresh(_scr);
 
 	getch();
-	wclear(_inw);
-	wrefresh(_inw);
-	delwin(_inw);
+	wclear(_scr);
+	wrefresh(_scr);
+	delwin(_scr);
 }
 
-bool checkTermColor()
+bool Game::checkTermColor()
 {
   if(!has_colors())
 	{
@@ -249,7 +243,7 @@ bool checkTermColor()
   return false;
 }
 
-bool checkTermSize(int _h, int _w)
+bool Game::checkTermSize(int _h, int _w)
 {
   if (_h < MIN_H || _w < MIN_W) {
     printw(".--------------------------------------------------.\n");
@@ -264,3 +258,5 @@ bool checkTermSize(int _h, int _w)
   }
   return false;
 }
+
+
