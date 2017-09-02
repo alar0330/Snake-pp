@@ -1,7 +1,7 @@
 #ifdef _WIN32
   #include "../inc/ncursesw/ncurses.h"
 #elif __linux__
-  #include "../inc/ncurses/ncurses.h"
+  #include "../inc/ncurses/curses.h"
 #else
   // other systems
 #endif

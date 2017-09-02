@@ -1,7 +1,7 @@
 #ifdef _WIN32
   #include "../inc/ncursesw/ncurses.h"
 #elif __linux__
-  #include "../inc/ncurses/ncurses.h"
+  #include "../inc/ncurses/curses.h"
 #else
   // other systems
 #endif
@@ -239,7 +239,7 @@ bool checkTermColor()
 	  printw(".--------------------------------------------------.\n");
     printw("| Your terminal does not support color mode.       |\n");
     printw("| Please change your terminal settings or          |\n");
-    printw("|              try using another another terminal! |\n");
+    printw("|                      try using another terminal! |\n");
     printw(".--------------------------------------------------.\n");
     printw("                     HIT ANY KEY                   \n");
     getch();
