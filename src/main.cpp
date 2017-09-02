@@ -114,13 +114,13 @@ int main()
   game.drawIntro(inWIN);
 
   // Create Game window
-  gameWIN = newwin(gameH, gameW, gameY, gameX);
+  gameWIN = newwin(gaH, gaW, gaY, gaX);
   wattron(gameWIN, A_BOLD);
 
   // Create Snake and Food objects
-  Snake sn(gameW/2, gameH/2, -1, 0, 6);
+  Snake sn(gaW/2, gaH/2, -1, 0, 6);
   Food fd;
-  fd.renew(gameH, gameW, sn);
+  fd.renew(gaH, gaW, sn);
 
   // Switch to continuous keyboard input
   nodelay(stdscr, TRUE);
@@ -134,11 +134,11 @@ int main()
 
     game.drawSnake(gameWIN, sn, false);         // erase snake from the screen
     alive = game.updateWorld(gameWIN, sn, fd);  // perform interactions
-    snake.advance();                            // move snake
+    sn.advance();                            // move snake
     game.drawMap(gameWIN);                      // draw map
     game.drawFood(gameWIN, fd);                 // draw food
     game.drawSnake(gameWIN, sn);                // draw snake
-    game.drawStats(stdscr, gameH + gameY, sn);  // draw score
+    game.drawStats(stdscr, gaH + gaY, sn);  // draw score
     refresh();                                  // flip graphics
     wrefresh(gameWIN);                          // flip graphics gameWIN
     usleep(game.getGameSpeed());                // sleep
