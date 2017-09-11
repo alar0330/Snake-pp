@@ -180,7 +180,7 @@ void Game::drawIntro(WINDOW* _scr)
   wprintw(_scr, "  Greeting! This is Snake++ text game written in C++. \n\n");
   wprintw(_scr, "  Version: ");
   wattron(_scr, A_BOLD);
-  wprintw(_scr, " v1.3a (alpha)\n");
+  wprintw(_scr, " v1.4a (alpha)\n");
   wattroff(_scr, A_BOLD);
   wprintw(_scr, "  Author:  ");
   wattron(_scr, A_BOLD);
