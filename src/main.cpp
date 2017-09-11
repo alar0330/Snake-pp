@@ -4,47 +4,27 @@
  *  This is Snake++! A simple snake game for
  *                            command prompt/terminal written in C++.
  *
- *  @version  v1.3a (02.09.2017)
+ *  @version  v1.4a (11.09.2017)
  *  @author   Alaroff
  *
  * INFO:
  *
- *   - It is minimalistically cross-platform:
- *                          currently Windows (under MinGW) and Linux.
+ *   It is minimalistically cross-platform:
+ *                                     currently Windows and Linux.
  *
- *   - This repo (https://github.com/alar0330/Snake-pp) contains all the
- *     neccessary ncurses Win- and Lin-libraries, so that Snake++ can be
- *     readily compiled into a binary without needing to fetch/install
- *     ncurses libraries manually.
  *
  * NOTES:
  *
- *   - This code is a proof of concept, rather then elegance, efficiency,
- *     or cleanness -- there are lots of ways to improve it. This is my
- *     very first app with any kind of "graphics" an which I didn't want
- *     to spend more than a day of coding. Moreover, I wanted to avoid the
- *     std-libraries for the sake of practice (e.g. using std::list would
- *     spare some code overhead).
- *
- *   - This code uses nowadays depricated (?) POSIX function 'usleep()',
- *     since 'std::thread' is not fully supported in MinGW32 and I did't
- *     want to spend time looking for more elegant solutions. Anyway,
- *     Win-library of ncurses is POSIX-based through e.g. MinGW anyhow.
+ *   This code is a proof of concept, rather then elegance, efficiency, 
+ *   or cleanness -- there are lots of ways to improve it. This is my 
+ *   very first app with any kind of "graphics". Moreover, I wanted an 
+ *   implementation with self-made singly-linked lists for the sake of 
+ *   practice (e.g. using std::list would spare some code overhead, using
+ *   mere array would make it even simpler).
  */
 
 
-// if compile with destributed copy of ncurses library
-#ifdef GIVEMEYOURCURSES
-  #ifdef _WIN32
-    #include "../inc/ncursesw/ncurses.h"
-  #elif __linux__
-    #include "../inc/ncurses/curses.h"
-  #else
-    // other systems
-  #endif
-
 // if compile with already pre-installed libraries of ncurses
-#else
   #ifdef _WIN32
     #include <ncursesw/ncurses.h>
   #elif __linux__
@@ -52,7 +32,6 @@
   #else
     // other systems
   #endif
-#endif
 
 #include "../inc/nsnake.hpp"
 #include "../inc/game.hpp"
