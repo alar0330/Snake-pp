@@ -7,11 +7,12 @@ It is minimalistically cross-platform: currently Windows (MinGW/Cygwin) and Linu
 ## Dependencies
 
 Linux: **ncurses**
+
 Win: **ncursesw**
 
 ## Compile
 
-Given the **ncurses libraries** are in PATHs, compile as
+Given the **ncurses** libraries are in PATHs, compile as
 
 - Linux:
 ```
