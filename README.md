@@ -1,16 +1,17 @@
 ## Snake-pp
 
-This is **Snake++**! A simple snake game for command prompt/terminal written in C++.
+This is **Snake++**! A simple snake game for command prompt/terminal written in C++ for practice.
 
 It is minimalistically cross-platform: currently Windows (MinGW/Cygwin) and Linux.
 
-## Notes
+## Dependencies
 
-*This code is a **proof of concept**, rather then elegance, efficiency, or cleanness -- there are lots of ways to improve it. This is my very first app with any kind of "graphics". Moreover, I wanted an implementation with self-made singly-linked lists for the sake of practice (e.g. using std::list would spare some code overhead, using mere array would make it even simpler).*
+Linux: **ncurses**
+Win: **ncursesw**
 
 ## Compile
 
-If you **have** 'ncurses' libraries already pre-installed on your machine, compile with
+Given the **ncurses libraries** are in PATHs, compile as
 
 - Linux:
 ```
